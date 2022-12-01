@@ -1,17 +1,24 @@
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    val input = readInput("Day01_test")
+
+    val list = mutableListOf<List<Int>>()
+
+    var current = mutableListOf<Int>()
+    input.forEach {
+        if (it.isEmpty()) {
+            list.add(current)
+
+            current = mutableListOf<Int>()
+        } else {
+            current.add(it.toInt())
+        }
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
-    }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    val result1 = list.map { item -> item.sumOf { it } }.maxOf { it }
+    val result2 = list.map { item -> item.sumOf { it } }.sorted().takeLast(3).sum()
 
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    println("Result 1:$result1")
+    println("Result 2:$result2")
+
 }
