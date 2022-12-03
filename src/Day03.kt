@@ -1,26 +1,35 @@
-fun main() {
-    Day03().execute()
-}
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import org.junit.jupiter.api.Test
 
 class Day03 {
 
-    fun execute() {
-        val inputTest = readInput("Day03_test")
-        val input = readInput("Day03")
+    @Test
+    fun testSolution1() {
+        assertThat(solution1(readInput("Day03_test"))).isEqualTo("157")
+    }
 
-        println("Test Solution1:${solution1(inputTest)}")
-        println("Solution1:${solution1(input)}")
+    @Test
+    fun solution1() {
+        assertThat(solution1(readInput("Day03"))).isEqualTo("8202")
+    }
 
-        println("Test Solution2:${solution2(inputTest)}")
-        println("Solution2:${solution2(input)}")
+    @Test
+    fun testSolution2() {
+        assertThat(solution2(readInput("Day03_test"))).isEqualTo("70")
+    }
+
+    @Test
+    fun solution2() {
+        assertThat(solution2(readInput("Day03"))).isEqualTo("2864")
     }
 
     private fun solution1(input: List<String>): String {
         var total = 0
 
         input.forEach { str ->
-            val compartmentsA = str.substring(0,str.length/2).toCharArray()
-            val compartmentsB = str.substring(str.length/2, str.length).toCharArray()
+            val compartmentsA = str.substring(0, str.length / 2).toCharArray()
+            val compartmentsB = str.substring(str.length / 2, str.length).toCharArray()
 
             val duplicates = mutableListOf<Char>()
             compartmentsA.forEach {
@@ -30,7 +39,7 @@ class Day03 {
             }
 
             duplicates.forEach { char ->
-                total += valueOf(char)
+                total += char.alphabetValueOf()
             }
         }
 
@@ -43,8 +52,8 @@ class Day03 {
         var index = 0
         while (index < input.size) {
             val group1 = input[index]
-            val group2 = input[index+1]
-            val group3 = input[index+2]
+            val group2 = input[index + 1]
+            val group3 = input[index + 2]
 
             total += findDuplicate(group1, group2, group3)
             index += 3
@@ -59,7 +68,7 @@ class Day03 {
                 if (char1 == char2) {
                     group3.forEach { char3 ->
                         if (char1 == char3) {
-                            return valueOf(char1)
+                            return char1.alphabetValueOf()
                         }
                     }
                 }
@@ -68,9 +77,9 @@ class Day03 {
         error("Not found")
     }
 
-    private fun valueOf(char: Char): Int {
-        var value: Int = char.lowercaseChar().code - 'a'.code + 1
-        if (char.isUpperCase()) value += 26
+    private fun Char.alphabetValueOf(): Int {
+        var value: Int = lowercaseChar().code - 'a'.code + 1
+        if (isUpperCase()) value += 26
         return value
     }
 }
