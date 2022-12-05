@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 
 class Day06 {
 
-    private val day = "Day05"
+    private val day = "Day06"
 
     @Test
     fun testSolution1() {
