@@ -2,9 +2,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Test
 
-class DayTemplate {
+class Day12 {
 
-    private val day = "DayXX"
+    private val day = "Day12"
 
     @Test
     fun testSolution1() {
